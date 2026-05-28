@@ -154,7 +154,6 @@ const App = () => {
         <button onClick={resetAllData} style={{background: '#8b0000', marginLeft: '15px'}}>Reset All Data</button>
       </div>
 
-      {/* Legion Assignment */}
       <div className="pairing">
         <h2>Legion Assignment</h2>
         <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center'}}>
@@ -175,7 +174,6 @@ const App = () => {
         </div>
       </div>
 
-      {/* Round Pairing System */}
       <div className="pairing">
         <h2>Round Pairing System</h2>
         <label>Current Round: 
@@ -201,7 +199,6 @@ const App = () => {
         )}
       </div>
 
-      {/* Add New General with corrected factions */}
       <div className="add-player">
         <h2>Add New General</h2>
         <input type="text" placeholder="General Name" value={newPlayer.name} onChange={e => setNewPlayer({...newPlayer, name: e.target.value})} />
@@ -209,59 +206,118 @@ const App = () => {
         <select value={newPlayer.faction} onChange={e => setNewPlayer({...newPlayer, faction: e.target.value})}>
           <option value="">Select Faction / Army</option>
           
-          <optgroup label="Grand Armies">
-            <option value="Dwarfen Mountain Holds">Dwarfen Mountain Holds</option>
-            <option value="Royal Clans">Royal Clans</option>
-            <option value="Expeditionary Force">Expeditionary Force</option>
-            <option value="Slayer Host">Slayer Host</option>
-            <option value="Empire of Man">Empire of Man</option>
-            <option value="City-state of Nuln">City-state of Nuln</option>
-            <option value="Knightly Order">Knightly Order</option>
-            <option value="Grand Cathay">Grand Cathay</option>
-            <option value="Jade Fleet">Jade Fleet</option>
-            <option value="Warriors of Wind & Field">Warriors of Wind & Field</option>
-            <option value="High Elf Realms">High Elf Realms</option>
-            <option value="The Chracian Warhost">The Chracian Warhost</option>
-            <option value="Sea Guard Garrison">Sea Guard Garrison</option>
-            <option value="Kingdom of Bretonnia">Kingdom of Bretonnia</option>
-            <option value="Bretonnian Exiles">Bretonnian Exiles</option>
-            <option value="Errantry Crusade">Errantry Crusade</option>
-            <option value="Lizardmen">Lizardmen</option>
-            <option value="Ogre Kingdoms">Ogre Kingdoms</option>
-            <option value="Wood Elf Realms">Wood Elf Realms</option>
-            <option value="Orion's Wild Hunt">Orion's Wild Hunt</option>
-            <option value="Host of Talsyn">Host of Talsyn</option>
-          </optgroup>
-
-          <optgroup label="Armies of Infamy & Legacy">
-            <option value="Beastmen Brayherds">Beastmen Brayherds</option>
-            <option value="Minotaur Blood Herd">Minotaur Blood Herd</option>
-            <option value="Wild Herd">Wild Herd</option>
-            <option value="Chaos Dwarfs">Chaos Dwarfs</option>
-            <option value="Daemons of Chaos">Daemons of Chaos</option>
-            <option value="Dark Elves">Dark Elves</option>
-            <option value="Realms of Men">Realms of Men</option>
-            <option value="Renegade Crowns">Renegade Crowns</option>
-            <option value="Skaven">Skaven</option>
-            <option value="Tomb Kings of Khemri">Tomb Kings of Khemri</option>
-            <option value="Nehekharan Royal Host">Nehekharan Royal Host</option>
-            <option value="Mortuary Cult">Mortuary Cult</option>
-            <option value="Vampire Counts">Vampire Counts</option>
-            <option value="Warriors of Chaos">Warriors of Chaos</option>
-            <option value="Wolves of the Sea">Wolves of the Sea</option>
-            <option value="Heralds of Darkness">Heralds of Darkness</option>
-            <option value="Orc & Goblin Tribes">Orc & Goblin Tribes</option>
-            <option value="Nomadic Waaagh!">Nomadic Waaagh!</option>
-            <option value="Troll Horde">Troll Horde</option>
-          </optgroup>
+          <option value="Dwarfen Mountain Holds">Dwarfen Mountain Holds</option>
+          <option value="Royal Clans">Royal Clans</option>
+          <option value="Expeditionary Force">Expeditionary Force</option>
+          <option value="Slayer Host">Slayer Host</option>
+          <option value="Empire of Man">Empire of Man</option>
+          <option value="City-state of Nuln">City-state of Nuln</option>
+          <option value="Knightly Order">Knightly Order</option>
+          <option value="Grand Cathay">Grand Cathay</option>
+          <option value="Jade Fleet">Jade Fleet</option>
+          <option value="Warriors of Wind & Field">Warriors of Wind & Field</option>
+          <option value="High Elf Realms">High Elf Realms</option>
+          <option value="The Chracian Warhost">The Chracian Warhost</option>
+          <option value="Sea Guard Garrison">Sea Guard Garrison</option>
+          <option value="Kingdom of Bretonnia">Kingdom of Bretonnia</option>
+          <option value="Bretonnian Exiles">Bretonnian Exiles</option>
+          <option value="Errantry Crusade">Errantry Crusade</option>
+          <option value="Lizardmen">Lizardmen</option>
+          <option value="Ogre Kingdoms">Ogre Kingdoms</option>
+          <option value="Wood Elf Realms">Wood Elf Realms</option>
+          <option value="Orion's Wild Hunt">Orion's Wild Hunt</option>
+          <option value="Host of Talsyn">Host of Talsyn</option>
+          
+          <option value="Beastmen Brayherds">Beastmen Brayherds</option>
+          <option value="Minotaur Blood Herd">Minotaur Blood Herd</option>
+          <option value="Wild Herd">Wild Herd</option>
+          <option value="Chaos Dwarfs">Chaos Dwarfs</option>
+          <option value="Daemons of Chaos">Daemons of Chaos</option>
+          <option value="Dark Elves">Dark Elves</option>
+          <option value="Realms of Men">Realms of Men</option>
+          <option value="Renegade Crowns">Renegade Crowns</option>
+          <option value="Skaven">Skaven</option>
+          <option value="Tomb Kings of Khemri">Tomb Kings of Khemri</option>
+          <option value="Nehekharan Royal Host">Nehekharan Royal Host</option>
+          <option value="Mortuary Cult">Mortuary Cult</option>
+          <option value="Vampire Counts">Vampire Counts</option>
+          <option value="Warriors of Chaos">Warriors of Chaos</option>
+          <option value="Wolves of the Sea">Wolves of the Sea</option>
+          <option value="Heralds of Darkness">Heralds of Darkness</option>
+          <option value="Orc & Goblin Tribes">Orc & Goblin Tribes</option>
+          <option value="Nomadic Waaagh!">Nomadic Waaagh!</option>
+          <option value="Troll Horde">Troll Horde</option>
         </select>
 
         <input type="text" placeholder="Legion Name" value={newPlayer.legion} onChange={e => setNewPlayer({...newPlayer, legion: e.target.value})} />
         <button onClick={addPlayer}>Add General</button>
       </div>
 
-      {/* The rest of the app (View Legion, Standings, Awards, Player Cards, Disclaimer) remains the same */}
-      {/* ... (keeping all other sections) ... */}
+      {/* Rest of the app (View Legion, Standings, Awards, Player Cards, Footer) */}
+      <div className="legion-selector">
+        <h2>View Legion</h2>
+        <select value={selectedLegion} onChange={e => setSelectedLegion(e.target.value)}>
+          <option value="All">All Generals</option>
+          {allLegions.map(legion => <option key={legion} value={legion}>{legion}</option>)}
+        </select>
+      </div>
+
+      <div className="dashboard">
+        <h2>🏆 Grand Banner Standings</h2>
+        {legionAwards.map((l, i) => (
+          <div key={i} className="legion-score">
+            <strong>#{i+1} {l.legion}</strong> — {l.totalVP} VP • {l.playerCount} Generals
+          </div>
+        ))}
+      </div>
+
+      <div className="awards">
+        <h2>🏅 Legion Champions</h2>
+        {legionAwards.map((l, i) => (
+          <div key={i} className="legion-awards">
+            <h3>{l.legion}</h3>
+            <p><strong>Best General:</strong> {l.bestGeneral?.name} ({l.bestGeneral?.totalVP} VP)</p>
+            <p><strong>Objective King:</strong> {l.objectiveKing?.name} ({l.objectiveKing?.objectivePoints} pts)</p>
+            <p><strong>Slayer King:</strong> {l.slayerKing?.name} ({l.slayerKing?.slayerPoints} pts)</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="players-list">
+        <h2>
+          {selectedLegion === "All" ? `All Generals (${players.length})` : `${selectedLegion} (${displayedPlayers.length} Generals)`}
+        </h2>
+        <input type="text" placeholder="Search Generals..." value={search} onChange={e => setSearch(e.target.value)} className="search-bar" />
+        {displayedPlayers
+          .filter(p => p.name.toLowerCase().includes(search.toLowerCase()))
+          .map(player => (
+            <div key={player.id} className="player-card">
+              <div className="editable-header">
+                <input type="text" value={player.name} onChange={e => updatePlayer(player.id, 'name', e.target.value)} />
+                <small><input type="text" value={player.faction} onChange={e => updatePlayer(player.id, 'faction', e.target.value)} /></small>
+              </div>
+              <label>Legion: <input type="text" value={player.legion} onChange={e => updatePlayer(player.id, 'legion', e.target.value)} /></label>
+              <div className="scoring">
+                <label>Painting: 
+                  <select value={player.paintingBonus} onChange={e => updatePlayer(player.id, 'paintingBonus', Number(e.target.value))}>
+                    <option value={0}>0</option><option value={75}>+75</option><option value={125}>+125</option><option value={250}>+250</option>
+                  </select>
+                </label>
+                <label>Narrative +250: <input type="checkbox" checked={player.narrativeBonus === 250} onChange={e => updatePlayer(player.id, 'narrativeBonus', e.target.checked ? 250 : 0)} /></label>
+                {player.vpRounds.map((vp, i) => (
+                  <label key={i}>R{i+1} VP: <input type="number" value={vp} onChange={e => {
+                    const newVps = [...player.vpRounds];
+                    newVps[i] = Number(e.target.value);
+                    updatePlayer(player.id, 'vpRounds', newVps);
+                  }} /></label>
+                ))}
+                <label>Objective Mastery: <input type="number" value={player.objectivePoints} onChange={e => updatePlayer(player.id, 'objectivePoints', Number(e.target.value))} /></label>
+                <label>Slayer King: <input type="number" value={player.slayerPoints} onChange={e => updatePlayer(player.id, 'slayerPoints', Number(e.target.value))} /></label>
+              </div>
+              <p className="total"><strong>Total VP: {player.totalVP}</strong></p>
+            </div>
+          ))}
+      </div>
 
       <footer style={{
         textAlign: 'center',

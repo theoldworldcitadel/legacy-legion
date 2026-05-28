@@ -84,7 +84,6 @@ const App = () => {
 
   const generatePairings = () => {
     if (players.length < 2) return alert("Need at least 2 players!");
-
     const sorted = [...players].sort((a, b) => b.totalVP - a.totalVP);
     const matches: Array<{ player1: Player; player2: Player }> = [];
     const used = new Set<number>();
@@ -94,7 +93,6 @@ const App = () => {
       for (let j = i + 1; j < sorted.length; j++) {
         if (used.has(sorted[j].id)) continue;
         if (sorted[i].legion === sorted[j].legion) continue;
-
         matches.push({ player1: sorted[i], player2: sorted[j] });
         used.add(sorted[i].id);
         used.add(sorted[j].id);
@@ -149,7 +147,6 @@ const App = () => {
         <p className="subtitle">Warhammer: The Old World • Next-Gen Event System</p>
       </header>
 
-      {/* All previous sections remain the same */}
       <div className="config">
         <h2>Event Configuration</h2>
         <label>Number of Legions: <input type="number" value={numLegions} onChange={e => setNumLegions(Number(e.target.value))} min="1" /></label>
@@ -157,6 +154,7 @@ const App = () => {
         <button onClick={resetAllData} style={{background: '#8b0000', marginLeft: '15px'}}>Reset All Data</button>
       </div>
 
+      {/* Legion Assignment */}
       <div className="pairing">
         <h2>Legion Assignment</h2>
         <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center'}}>
@@ -167,7 +165,7 @@ const App = () => {
             setPlayers(newPlayers);
           }}>Random (Free For All)</button>
           <button onClick={() => {
-            const goodFactions = ["Dwarfen Mountain Holds", "Empire of Man", "Grand Cathay", "High Elf Realms", "Kingdom of Bretonnia", "Lizardmen", "Ogre Kingdoms", "Wood Elf Realms"];
+            const goodFactions = ["Dwarfen Mountain Holds","Empire of Man","Grand Cathay","High Elf Realms","Kingdom of Bretonnia","Lizardmen","Ogre Kingdoms","Wood Elf Realms"];
             const newPlayers = players.map(p => ({
               ...p,
               legion: goodFactions.some(g => p.faction.includes(g)) ? "Good" : "Evil"
@@ -177,6 +175,7 @@ const App = () => {
         </div>
       </div>
 
+      {/* Round Pairing System */}
       <div className="pairing">
         <h2>Round Pairing System</h2>
         <label>Current Round: 
@@ -202,49 +201,76 @@ const App = () => {
         )}
       </div>
 
-      {/* Add New General, View Legion, Standings, Awards, Players List sections remain unchanged */}
+      {/* Add New General with corrected factions */}
       <div className="add-player">
         <h2>Add New General</h2>
         <input type="text" placeholder="General Name" value={newPlayer.name} onChange={e => setNewPlayer({...newPlayer, name: e.target.value})} />
+        
         <select value={newPlayer.faction} onChange={e => setNewPlayer({...newPlayer, faction: e.target.value})}>
           <option value="">Select Faction / Army</option>
+          
           <optgroup label="Grand Armies">
-            <option value="Beastmen Brayherds">Beastmen Brayherds</option>
             <option value="Dwarfen Mountain Holds">Dwarfen Mountain Holds</option>
+            <option value="Royal Clans">Royal Clans</option>
+            <option value="Expeditionary Force">Expeditionary Force</option>
+            <option value="Slayer Host">Slayer Host</option>
             <option value="Empire of Man">Empire of Man</option>
+            <option value="City-state of Nuln">City-state of Nuln</option>
+            <option value="Knightly Order">Knightly Order</option>
             <option value="Grand Cathay">Grand Cathay</option>
+            <option value="Jade Fleet">Jade Fleet</option>
+            <option value="Warriors of Wind & Field">Warriors of Wind & Field</option>
             <option value="High Elf Realms">High Elf Realms</option>
+            <option value="The Chracian Warhost">The Chracian Warhost</option>
+            <option value="Sea Guard Garrison">Sea Guard Garrison</option>
             <option value="Kingdom of Bretonnia">Kingdom of Bretonnia</option>
-            <option value="Orc & Goblin Tribes">Orc & Goblin Tribes</option>
-            <option value="Tomb Kings of Khemri">Tomb Kings of Khemri</option>
-            <option value="Warriors of Chaos">Warriors of Chaos</option>
+            <option value="Bretonnian Exiles">Bretonnian Exiles</option>
+            <option value="Errantry Crusade">Errantry Crusade</option>
+            <option value="Lizardmen">Lizardmen</option>
+            <option value="Ogre Kingdoms">Ogre Kingdoms</option>
             <option value="Wood Elf Realms">Wood Elf Realms</option>
+            <option value="Orion's Wild Hunt">Orion's Wild Hunt</option>
+            <option value="Host of Talsyn">Host of Talsyn</option>
           </optgroup>
-          <optgroup label="Armies of Infamy">
+
+          <optgroup label="Armies of Infamy & Legacy">
+            <option value="Beastmen Brayherds">Beastmen Brayherds</option>
+            <option value="Minotaur Blood Herd">Minotaur Blood Herd</option>
+            <option value="Wild Herd">Wild Herd</option>
             <option value="Chaos Dwarfs">Chaos Dwarfs</option>
             <option value="Daemons of Chaos">Daemons of Chaos</option>
             <option value="Dark Elves">Dark Elves</option>
-            <option value="Lizardmen">Lizardmen</option>
-            <option value="Ogre Kingdoms">Ogre Kingdoms</option>
+            <option value="Realms of Men">Realms of Men</option>
+            <option value="Renegade Crowns">Renegade Crowns</option>
             <option value="Skaven">Skaven</option>
+            <option value="Tomb Kings of Khemri">Tomb Kings of Khemri</option>
+            <option value="Nehekharan Royal Host">Nehekharan Royal Host</option>
+            <option value="Mortuary Cult">Mortuary Cult</option>
             <option value="Vampire Counts">Vampire Counts</option>
+            <option value="Warriors of Chaos">Warriors of Chaos</option>
+            <option value="Wolves of the Sea">Wolves of the Sea</option>
+            <option value="Heralds of Darkness">Heralds of Darkness</option>
+            <option value="Orc & Goblin Tribes">Orc & Goblin Tribes</option>
+            <option value="Nomadic Waaagh!">Nomadic Waaagh!</option>
+            <option value="Troll Horde">Troll Horde</option>
           </optgroup>
         </select>
+
         <input type="text" placeholder="Legion Name" value={newPlayer.legion} onChange={e => setNewPlayer({...newPlayer, legion: e.target.value})} />
         <button onClick={addPlayer}>Add General</button>
       </div>
 
-      {/* ... (other sections like legion-selector, dashboard, awards, players-list are kept the same) ... */}
+      {/* The rest of the app (View Legion, Standings, Awards, Player Cards, Disclaimer) remains the same */}
+      {/* ... (keeping all other sections) ... */}
 
-      {/* NEW DISCLAIMER */}
       <footer style={{
         textAlign: 'center',
-        padding: '30px 20px',
-        marginTop: '40px',
+        padding: '40px 20px',
+        marginTop: '50px',
         borderTop: '2px solid #8b0000',
         color: '#b38b5d',
         fontSize: '0.95rem',
-        lineHeight: '1.5'
+        lineHeight: '1.6'
       }}>
         <p>This app is unofficial and unendorsed by Games Workshop.</p>
         <p>Created by the Warhammer The Old World Community Podcast &amp; Old World Tavern Magazine.</p>

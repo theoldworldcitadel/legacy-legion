@@ -23,9 +23,9 @@ interface Pairing {
 const App = () => {
   const [numLegions, setNumLegions] = useState(4);
   const [playersPerLegion, setPlayersPerLegion] = useState(6);
+  const [numRounds, setNumRounds] = useState(4);
   const [players, setPlayers] = useState<Player[]>([]);
   const [newPlayer, setNewPlayer] = useState({ name: '', faction: '', legion: '' });
-  const [rounds] = useState(4);
   const [search, setSearch] = useState('');
   const [selectedLegion, setSelectedLegion] = useState<string>("All");
   const [currentRound, setCurrentRound] = useState(1);
@@ -41,6 +41,15 @@ const App = () => {
     localStorage.setItem('legacyLegionPlayers', JSON.stringify(players));
   }, [players]);
 
+  // Adjust VP rounds when number of rounds changes
+  useEffect(() => {
+    setPlayers(prev => prev.map(player => {
+      const currentVps = player.vpRounds || [];
+      const newVps = Array.from({ length: numRounds }, (_, i) => currentVps[i] || 0);
+      return { ...player, vpRounds: newVps };
+    }));
+  }, [numRounds]);
+
   const addPlayer = () => {
     if (!newPlayer.name || !newPlayer.legion) {
       alert("Name and Legion are required!");
@@ -53,7 +62,7 @@ const App = () => {
       legion: newPlayer.legion,
       paintingBonus: 0,
       narrativeBonus: 0,
-      vpRounds: Array(rounds).fill(0),
+      vpRounds: Array(numRounds).fill(0),
       objectivePoints: 0,
       slayerPoints: 0,
       totalVP: 0,
@@ -147,13 +156,34 @@ const App = () => {
         <p className="subtitle">Warhammer: The Old World • Next-Gen Event System</p>
       </header>
 
+      {/* Improved Event Configuration */}
       <div className="config">
         <h2>Event Configuration</h2>
-        <label>Number of Legions: <input type="number" value={numLegions} onChange={e => setNumLegions(Number(e.target.value))} min="1" /></label>
-        <label>Generals per Legion: <input type="number" value={playersPerLegion} onChange={e => setPlayersPerLegion(Number(e.target.value))} min="2" /></label>
-        <button onClick={resetAllData} style={{background: '#8b0000', marginLeft: '15px'}}>Reset All Data</button>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', alignItems: 'center' }}>
+          <label>
+            Number of Legions: 
+            <input type="number" value={numLegions} onChange={e => setNumLegions(Number(e.target.value))} min="1" style={{ width: '80px', marginLeft: '8px' }} />
+          </label>
+          
+          <label>
+            Generals per Legion: 
+            <input type="number" value={playersPerLegion} onChange={e => setPlayersPerLegion(Number(e.target.value))} min="2" style={{ width: '80px', marginLeft: '8px' }} />
+          </label>
+
+          <label>
+            Number of Rounds: 
+            <select value={numRounds} onChange={e => setNumRounds(Number(e.target.value))} style={{ marginLeft: '8px' }}>
+              {[3,4,5,6].map(r => <option key={r} value={r}>{r} Rounds</option>)}
+            </select>
+          </label>
+
+          <button onClick={resetAllData} style={{background: '#8b0000', color: 'white', padding: '10px 18px', fontWeight: 'bold', marginLeft: 'auto'}}>
+            Reset All Data
+          </button>
+        </div>
       </div>
 
+      {/* Legion Assignment */}
       <div className="pairing">
         <h2>Legion Assignment</h2>
         <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center'}}>
@@ -174,11 +204,14 @@ const App = () => {
         </div>
       </div>
 
+      {/* Round Pairing System */}
       <div className="pairing">
         <h2>Round Pairing System</h2>
         <label>Current Round: 
           <select value={currentRound} onChange={e => setCurrentRound(Number(e.target.value))}>
-            {[1,2,3,4].map(r => <option key={r} value={r}>Round {r}</option>)}
+            {Array.from({length: numRounds}, (_, i) => i+1).map(r => (
+              <option key={r} value={r}>Round {r}</option>
+            ))}
           </select>
         </label>
         <button onClick={generatePairings} style={{background: '#8b0000', padding: '12px 20px', margin: '10px'}}>
@@ -199,13 +232,13 @@ const App = () => {
         )}
       </div>
 
+      {/* Add New General */}
       <div className="add-player">
         <h2>Add New General</h2>
         <input type="text" placeholder="General Name" value={newPlayer.name} onChange={e => setNewPlayer({...newPlayer, name: e.target.value})} />
         
         <select value={newPlayer.faction} onChange={e => setNewPlayer({...newPlayer, faction: e.target.value})}>
           <option value="">Select Faction / Army</option>
-          
           <option value="Dwarfen Mountain Holds">Dwarfen Mountain Holds</option>
           <option value="Royal Clans">Royal Clans</option>
           <option value="Expeditionary Force">Expeditionary Force</option>
@@ -227,7 +260,6 @@ const App = () => {
           <option value="Wood Elf Realms">Wood Elf Realms</option>
           <option value="Orion's Wild Hunt">Orion's Wild Hunt</option>
           <option value="Host of Talsyn">Host of Talsyn</option>
-          
           <option value="Beastmen Brayherds">Beastmen Brayherds</option>
           <option value="Minotaur Blood Herd">Minotaur Blood Herd</option>
           <option value="Wild Herd">Wild Herd</option>
@@ -253,7 +285,7 @@ const App = () => {
         <button onClick={addPlayer}>Add General</button>
       </div>
 
-      {/* Rest of the app (View Legion, Standings, Awards, Player Cards, Footer) */}
+      {/* View Legion */}
       <div className="legion-selector">
         <h2>View Legion</h2>
         <select value={selectedLegion} onChange={e => setSelectedLegion(e.target.value)}>
@@ -262,6 +294,7 @@ const App = () => {
         </select>
       </div>
 
+      {/* Grand Banner Standings */}
       <div className="dashboard">
         <h2>🏆 Grand Banner Standings</h2>
         {legionAwards.map((l, i) => (
@@ -271,6 +304,7 @@ const App = () => {
         ))}
       </div>
 
+      {/* Legion Champions */}
       <div className="awards">
         <h2>🏅 Legion Champions</h2>
         {legionAwards.map((l, i) => (
@@ -283,6 +317,7 @@ const App = () => {
         ))}
       </div>
 
+      {/* Players List */}
       <div className="players-list">
         <h2>
           {selectedLegion === "All" ? `All Generals (${players.length})` : `${selectedLegion} (${displayedPlayers.length} Generals)`}
@@ -319,6 +354,7 @@ const App = () => {
           ))}
       </div>
 
+      {/* Disclaimer */}
       <footer style={{
         textAlign: 'center',
         padding: '40px 20px',
